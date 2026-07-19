@@ -1,4 +1,5 @@
 # Citadel
+Live demo: https://citadel-XXXX.onrender.com (first request after idle takes about a minute)
 
 Ask questions about two RBI rulebooks — the KYC Directions (2025) and the
 Prepaid Payment Instruments Master Directions (2021) — and get answers where

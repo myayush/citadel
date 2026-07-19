@@ -62,7 +62,7 @@ def ask(request: AskRequest):
     if not demo_guard.check_and_count():
         raise HTTPException(
             status_code=429,
-            detail="Daily demo limit reached. See the repo and demo video: github.com/<your-username>/citadel",
+            detail="Daily demo limit reached. See the repo and demo video: github.com/myayush/citadel",
         )
         
     if request.mode == "simple":
