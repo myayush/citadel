@@ -1,13 +1,13 @@
 # Citadel
 
-Question answering over two RBI regulatory documents: the Commercial Banks KYC
-Directions, 2025 and the Master Directions on Prepaid Payment Instruments, 2021.
-Every claim in an answer cites the exact source chunk. If the answer is not in
-the documents, it refuses instead of guessing.
+Ask questions about two RBI rulebooks — the KYC Directions (2025) and the
+Prepaid Payment Instruments Master Directions (2021) — and get answers where
+every claim points to the exact paragraph it came from. If the answer is not
+in the documents, it says `NOT_IN_CORPUS` instead of guessing.
 
-Stack: FastAPI, Postgres + pgvector, sentence-transformers (all-MiniLM-L6-v2,
-local CPU), Groq API. No LangChain or LlamaIndex - retrieval fusion, the agent
-loop, and the eval harness are hand-rolled on purpose.
+Built with FastAPI, Postgres + pgvector, a local embedding model
+(all-MiniLM-L6-v2 on CPU), and the Groq API. No RAG frameworks — the search
+fusion, agent loop, and evaluation are all hand-written.
 
 ## How it works
 
@@ -27,34 +27,60 @@ POST /ask
                  of seen ids; anything else is flagged as fabricated
 ```
 
+The documents are split into 536 chunks, stored in Postgres. Each question is
+searched two ways:
+
+- **dense** — vector similarity, finds text that *means* the same thing
+- **lexical** — Postgres full-text search, finds exact words like "Section 12"
+
+The two result lists are merged with Reciprocal Rank Fusion (plain Python dict
+arithmetic). The top chunks go to the LLM with their ids, and the answer must
+cite those ids.
+
+**Simple mode**: search once, answer once. Fast, handles most questions.
+
+**Agent mode**: for questions that need both documents. The LLM runs in a
+hand-written loop — it asks for searches, my code runs them and feeds back the
+results, up to 8 rounds. Every chunk id the agent is shown gets recorded.
+After it answers, a small Python check compares the ids it *cited* against the
+ids it was *shown*. Any cited id it was never shown is flagged as a fabricated
+citation. No LLM involved in that check — just set membership.
+
 ## Results
 
-16 handwritten questions (small set - one question moves a cell by 20 points):
+Measured on 16 handwritten questions. Small set, so treat each cell as rough
+(one question moves it by 20 points).
 
-| method | semantic hit@5 | lexical hit@5 |
+| search method | semantic questions | keyword questions |
 |---|---|---|
-| dense | 40% | 100% |
-| lexical | 80% | 100% |
-| hybrid | 60% | 100% |
+| dense only | 40% | 100% |
+| lexical only | 80% | 100% |
+| hybrid (fused) | 60% | 100% |
 
-Simple mode: 88% faithfulness, $0.0007/question. Agent mode: 100% citation
-validity (zero fabricated citations), $0.0018/question. Raw results in `eval/`.
+Simple mode: 88% of answers fully supported by their sources, ~$0.0007 per
+question. Agent mode: zero fabricated citations across all runs, ~$0.0018 per
+question. Raw result files are in `eval/`.
 
-Main findings: Postgres full-text search beat the dense retriever on this
-corpus (formulaic regulatory prose favors keywords; MiniLM's 256-token window
-is weak on statutory text). RRF averages its inputs rather than picking the
-better one, so hybrid landed between them. The cross-document question failed
-in simple mode every run and is the reason agent mode exists. The LLM judge
-was the least reliable component and its verdicts were audited by hand.
+What the numbers showed:
 
-## Run it
+- Keyword search beat vector search here. Legal text repeats its own key
+  terms, which suits keywords, and the small embedding model only reads the
+  first ~1000 characters of each chunk.
+- Merging two rankings gives you their average, not their best — so hybrid
+  landed between the two, not above them.
+- The question that needed both documents always failed in simple mode.
+  Agent mode was built for exactly that case, and it handles it.
+- The LLM judge that grades answers made mistakes of its own, so I checked
+  its verdicts by hand across three runs.
 
-Needs: Docker, Python 3.11, a free Groq API key, and the two RBI PDFs saved as
-`data/raw/kyc_md.pdf` and `data/raw/ppi_md.pdf`.
+## Run it locally
+
+Needs: Docker, Python 3.11, a free Groq API key, and the two RBI PDFs saved
+as `data/raw/kyc_md.pdf` and `data/raw/ppi_md.pdf`.
 
 ```
 cp .env.example .env        # fill in GROQ_API_KEY and the two model ids;
-                            # leave DATABASE_URL empty to use the local Docker Postgres
+                            # leave DATABASE_URL empty to use local Docker Postgres
 docker compose up -d
 pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
@@ -63,14 +89,14 @@ python -m src.ingest
 uvicorn src.api:app --port 8000
 ```
 
-Open http://localhost:8000, or:
+Open http://localhost:8000 in a browser, or:
 
 ```
 curl -X POST localhost:8000/ask -H "Content-Type: application/json" \
   -d '{"question":"What is the cash loading limit for PPIs?","mode":"simple"}'
 ```
 
-Run the eval: `python -m eval.run_eval`
+Run the evaluation: `python -m eval.run_eval`
 
-To run against a hosted Postgres instead (this is how the live deployment
-works), set DATABASE_URL in .env - it takes precedence over the local values.
+For a hosted Postgres (how the live deployment works), set `DATABASE_URL` in
+`.env` — it overrides the local settings.
