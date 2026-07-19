@@ -1,0 +1,398 @@
+{
+  "retrieval": {
+    "dense": {
+      "semantic": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "lexical": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "lexical": {
+      "semantic": [
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "lexical": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "hybrid": {
+      "semantic": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "lexical": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "answers": [
+    {
+      "id": "q01",
+      "question": "How often does a bank have to refresh KYC for a customer it considers low risk?",
+      "query_type": "semantic",
+      "cohort": "kyc",
+      "answer": "A bank has to refresh KYC for a low-risk customer once every 10 years from the date of opening of the account / last KYC updation [1377].",
+      "citations": [
+        1377
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "The answer correctly states the 10 year period for low-risk customers in sections 42-part1 and 42-part2."
+      },
+      "answer_usage": {
+        "input_tokens": 1335,
+        "output_tokens": 36
+      },
+      "judge_usage": {
+        "input_tokens": 1410,
+        "output_tokens": 38
+      }
+    },
+    {
+      "id": "q02",
+      "question": "What extra checks apply when a bank opens an account remotely without meeting the customer or using video?",
+      "query_type": "semantic",
+      "cohort": "kyc",
+      "answer": "The bank shall categorise such customers as high-risk customers and shall subject accounts opened in non-face-to-face mode to enhanced monitoring until the identity of the customer is verified in face-to-face manner or through V-CIP [1394].",
+      "citations": [
+        1394
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "All the factual claims in the answer are supported by the excerpts, specifically [1394] KYC MD, section 44-part3."
+      },
+      "answer_usage": {
+        "input_tokens": 1077,
+        "output_tokens": 48
+      },
+      "judge_usage": {
+        "input_tokens": 1164,
+        "output_tokens": 44
+      }
+    },
+    {
+      "id": "q03",
+      "question": "What approvals does a bank need before opening an account for a senior foreign government official?",
+      "query_type": "semantic",
+      "cohort": "kyc",
+      "answer": "The bank shall obtain approval to open an account for a PEP (Politically Exposed Person), which includes senior foreign government officials, from the senior management [1395].",
+      "citations": [
+        1395
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "The answer is directly supported by section 45 of KYC MD, as mentioned in excerpt [1395]."
+      },
+      "answer_usage": {
+        "input_tokens": 1302,
+        "output_tokens": 36
+      },
+      "judge_usage": {
+        "input_tokens": 1377,
+        "output_tokens": 39
+      }
+    },
+    {
+      "id": "q04",
+      "question": "What is the maximum amount that can be held in a prepaid instrument after full KYC is completed?",
+      "query_type": "semantic",
+      "cohort": "ppi",
+      "answer": "The maximum amount that can be held in a Full-KYC PPI is \u20b92 lakh [1739].",
+      "citations": [
+        1739
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "There is a source excerpt that supports the answer."
+      },
+      "answer_usage": {
+        "input_tokens": 621,
+        "output_tokens": 23
+      },
+      "judge_usage": {
+        "input_tokens": 683,
+        "output_tokens": 23
+      }
+    },
+    {
+      "id": "q05",
+      "question": "Is identity verification needed for a prepaid instrument used on public transport, and what is the balance limit?",
+      "query_type": "semantic",
+      "cohort": "ppi",
+      "answer": "NOT_IN_CORPUS",
+      "citations": [],
+      "verdict": {
+        "verdict": "NO",
+        "reason": "The excerpts above do not discuss prepaid instruments used on public transport directly, but they do discuss a \u20b950,000 balance limit for various customer transactions and identification procedures."
+      },
+      "answer_usage": {
+        "input_tokens": 883,
+        "output_tokens": 6
+      },
+      "judge_usage": {
+        "input_tokens": 929,
+        "output_tokens": 46
+      }
+    },
+    {
+      "id": "q06",
+      "question": "V-CIP liveness check and geo-tagging requirements",
+      "query_type": "lexical",
+      "cohort": "kyc",
+      "answer": "The V-CIP liveness check shall not result in exclusion of person with special needs. The liveness check can be done without requiring the customer to make specific facial gestures, such as blinking of eyes, smiling, or frowning. The video recordings shall contain the live GPS co-ordinates (geo-tagging) of the customer undertaking the V-CIP and date and time stamp. The quality of the live video in the V-CIP shall be adequate to allow identification of the customer beyond doubt [1348]. The application shall have components with face liveness / spoof detection as well as face matching technology with high degree of accuracy [1348, 1349].",
+      "citations": [
+        1348
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "All claims in the answer are supported by the excerpts."
+      },
+      "answer_usage": {
+        "input_tokens": 1023,
+        "output_tokens": 135
+      },
+      "judge_usage": {
+        "input_tokens": 1198,
+        "output_tokens": 24
+      }
+    },
+    {
+      "id": "q07",
+      "question": "wire transfer originator information threshold Rs.50,000 domestic",
+      "query_type": "lexical",
+      "cohort": "kyc",
+      "answer": "For domestic wire transfers of \u20b950,000 and above, where the originator is not an account holder of the ordering bank, originator and beneficiary information is required [1449].",
+      "citations": [
+        1449
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "Excerpt 1449 explicitly mentions the requirement for \u20b950,000 and above domestic wire transfers."
+      },
+      "answer_usage": {
+        "input_tokens": 1006,
+        "output_tokens": 38
+      },
+      "judge_usage": {
+        "input_tokens": 1084,
+        "output_tokens": 33
+      }
+    },
+    {
+      "id": "q08",
+      "question": "cash loading PPI Rs.50,000 per month limit",
+      "query_type": "lexical",
+      "cohort": "ppi",
+      "answer": "Cash loading to PPIs shall be limited to Rs.50,000/- per month subject to overall limit of the PPI [1607].",
+      "citations": [
+        1607
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "The claim is supported by a direct quote from section 7.6 of PPI MD."
+      },
+      "answer_usage": {
+        "input_tokens": 1353,
+        "output_tokens": 31
+      },
+      "judge_usage": {
+        "input_tokens": 1424,
+        "output_tokens": 32
+      }
+    },
+    {
+      "id": "q09",
+      "question": "Small PPI loading limit financial year Rs.1,20,000",
+      "query_type": "lexical",
+      "cohort": "ppi",
+      "answer": "The total amount loaded during the financial year for Small PPIs shall not exceed Rs.1,20,000 [1620]",
+      "citations": [
+        1620
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "The answer is directly supported by section 9.1-part1, excerpt 1620"
+      },
+      "answer_usage": {
+        "input_tokens": 1390,
+        "output_tokens": 28
+      },
+      "judge_usage": {
+        "input_tokens": 1458,
+        "output_tokens": 35
+      }
+    },
+    {
+      "id": "q10",
+      "question": "PPIs to Foreign Nationals NRIs visiting India Passport Visa",
+      "query_type": "lexical",
+      "cohort": "ppi",
+      "answer": "The PPIs shall be issued after physical verification of Passport and Visa of the customers at the point of issuance [1633].",
+      "citations": [
+        1633
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "The specific excerpt [1633] explicitly states this claim."
+      },
+      "answer_usage": {
+        "input_tokens": 1058,
+        "output_tokens": 27
+      },
+      "judge_usage": {
+        "input_tokens": 1125,
+        "output_tokens": 25
+      }
+    },
+    {
+      "id": "q11",
+      "question": "Do PPI issuers have to follow the same KYC and anti-money-laundering rules that apply to banks?",
+      "query_type": "multi_doc",
+      "cohort": "ppi",
+      "answer": "Yes, PPI issuers have to follow the Know Your Customer (KYC) / Anti-Money Laundering (AML) / Combating Financing of Terrorism (CFT) guidelines issued by the Department of Regulation (DoR), RBI [1604].",
+      "citations": [
+        1604
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "Excerpt [1604] directly mentions that KYC/AML/CFT guidelines issued by the Department of Regulation (DoR) apply to all entities issuing PPIs."
+      },
+      "answer_usage": {
+        "input_tokens": 1140,
+        "output_tokens": 54
+      },
+      "judge_usage": {
+        "input_tokens": 1233,
+        "output_tokens": 48
+      }
+    },
+    {
+      "id": "q12",
+      "question": "Can V-CIP be used to open a full-KYC wallet, and which document lays down the V-CIP standards?",
+      "query_type": "multi_doc",
+      "cohort": "ppi",
+      "answer": "V-CIP can be used for CDD in case of new customer onboarding, which includes opening accounts that would require full-KYC. The document that lays down the V-CIP standards is the KYC MD [1346].",
+      "citations": [
+        1346
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "The excerpt [1346] supports both claims in the answer."
+      },
+      "answer_usage": {
+        "input_tokens": 1179,
+        "output_tokens": 48
+      },
+      "judge_usage": {
+        "input_tokens": 1266,
+        "output_tokens": 26
+      }
+    },
+    {
+      "id": "q13",
+      "question": "How does the identity information needed for a Small PPI compare with what a bank must collect for an account opened without meeting the customer?",
+      "query_type": "multi_doc",
+      "cohort": "kyc",
+      "answer": "NOT_IN_CORPUS",
+      "citations": [],
+      "verdict": {
+        "verdict": "NO",
+        "reason": "Information is available for 'Small PPI', but not directly comparable to non-face-to-face account opening, which is for an account that is an example of full-KYC PPI (section from 'KYC MD', section 38)."
+      },
+      "answer_usage": {
+        "input_tokens": 1354,
+        "output_tokens": 6
+      },
+      "judge_usage": {
+        "input_tokens": 1400,
+        "output_tokens": 61
+      }
+    },
+    {
+      "id": "q14",
+      "question": "A wallet company wants to onboard a foreign politician as a customer. Which rulebook governs that, and what does it require?",
+      "query_type": "multi_doc",
+      "cohort": "kyc",
+      "answer": "The rulebook that governs this is the KYC MD. For a foreign politician, who is considered a Politically Exposed Person (PEP), the bank shall have the option of establishing a relationship provided that, apart from performing normal customer due diligence, the bank has in place appropriate risk management systems, takes reasonable measures for establishing the source of funds/wealth, obtains approval to open an account from senior management, and subjects all such accounts to enhanced monitoring [1395].",
+      "citations": [
+        1395
+      ],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "all requirements mentioned for a PEP customer are found in [1395] KYC MD, section 45-part1"
+      },
+      "answer_usage": {
+        "input_tokens": 1151,
+        "output_tokens": 97
+      },
+      "judge_usage": {
+        "input_tokens": 1287,
+        "output_tokens": 37
+      }
+    },
+    {
+      "id": "q15",
+      "question": "What is the current repo rate announced by the RBI?",
+      "query_type": "refusal",
+      "cohort": "kyc",
+      "answer": "NOT_IN_CORPUS",
+      "citations": [],
+      "verdict": {
+        "verdict": "YES",
+        "reason": "Excerpts do not contain information on the current repo rate announced by the RBI."
+      },
+      "answer_usage": {
+        "input_tokens": 379,
+        "output_tokens": 6
+      },
+      "judge_usage": {
+        "input_tokens": 425,
+        "output_tokens": 30
+      }
+    },
+    {
+      "id": "q16",
+      "question": "What are the Basel III capital adequacy ratios applicable to scheduled commercial banks in India?",
+      "query_type": "refusal",
+      "cohort": "ppi",
+      "answer": "NOT_IN_CORPUS",
+      "citations": [],
+      "verdict": {
+        "verdict": "NO",
+        "reason": "Basel III capital adequacy ratios are not explicitly mentioned in the provided excerpts."
+      },
+      "answer_usage": {
+        "input_tokens": 932,
+        "output_tokens": 6
+      },
+      "judge_usage": {
+        "input_tokens": 978,
+        "output_tokens": 29
+      }
+    }
+  ]
+}

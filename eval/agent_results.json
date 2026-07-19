@@ -1,0 +1,90 @@
+[
+  {
+    "id": "q11",
+    "question": "Do PPI issuers have to follow the same KYC and anti-money-laundering rules that apply to banks?",
+    "answer": "PPI issuers must follow the same KYC and anti-money-laundering rules that apply to banks [1604, 1605]. According to section 6.1 of the PPI MD, PPI issuers must comply with the Know Your Customer (KYC) / Anti-Money Laundering (AML) / Combating Financing of Terrorism (CFT) guidelines issued by the Department of Regulation (DoR), RBI. Additionally, section 6.2 states that provisions of the Prevention of Money Laundering Act, 2002 (PMLA) and Rules framed thereunder are applicable to PPI issuers [1605].",
+    "verdict": {
+      "verdict": "YES",
+      "reason": "All claims are supported by sections 6.1 and 6.2 in excerpt [1605] and section 6.1 in excerpt [1604]"
+    },
+    "citation_validity": 1.0,
+    "fabricated_ids": [],
+    "tool_calls": 3,
+    "iterations": 3,
+    "hit_iteration_limit": false,
+    "answer_usage": {
+      "input_tokens": 2575,
+      "output_tokens": 209
+    },
+    "judge_usage": {
+      "input_tokens": 804,
+      "output_tokens": 46
+    }
+  },
+  {
+    "id": "q12",
+    "question": "Can V-CIP be used to open a full-KYC wallet, and which document lays down the V-CIP standards?",
+    "answer": "V-CIP can be used to open a full-KYC wallet [1625] (PPI MD, section 9.2-part1). The document that lays down the V-CIP standards is \"KYC MD\" [1347] (KYC MD, section 27-part1). The V-CIP standards include requirements for V-CIP infrastructure, encryption, and security audits [1348] (KYC MD, section 27-part2), [1350] (KYC MD, section 27-part4).",
+    "verdict": {
+      "verdict": "YES",
+      "reason": "All claims in the answer are directly supported by the provided excerpts."
+    },
+    "citation_validity": 1.0,
+    "fabricated_ids": [],
+    "tool_calls": 2,
+    "iterations": 2,
+    "hit_iteration_limit": false,
+    "answer_usage": {
+      "input_tokens": 2019,
+      "output_tokens": 148
+    },
+    "judge_usage": {
+      "input_tokens": 1142,
+      "output_tokens": 26
+    }
+  },
+  {
+    "id": "q13",
+    "question": "How does the identity information needed for a Small PPI compare with what a bank must collect for an account opened without meeting the customer?",
+    "answer": "The identity information needed for a Small PPI and a non face-to-face bank account is different in some ways. For a Small PPI, the PPI issuer can load a minimum of \u20b910,000 at the time of issuance and a maximum of \u20b910,000 during the month, but the total outstanding balance must not exceed \u20b910,000 at any point in time, according to section 9.1-part3 of the PPI MD [1622]. For a non face-to-face bank account, the bank must complete know-your-customer (KYC) requirements for the customer, as indicated in paragraph 6 of the PPI MD, and obtain a declaration from the customer that they have not opened another account using OTP-based KYC in non-face-to-face mode, as stated in section 25-part3 of the KYC MD [1345]. Additionally, the bank must verify the customer's PAN and conduct CDD measures, including customer risk categorization, and subject accounts opened in non face-to-face mode to higher due diligence, as mentioned in sections 44-part3 and 17-part1 of the KYC MD [1394, 1319]. The identity information required for a Small PPI includes KYC information as per paragraph 6, while for a non face-to-face bank account, it includes verifying the customer's identity through KYC and CDD measures, as well as conducting ongoing due diligence.",
+    "verdict": {
+      "verdict": "NO",
+      "reason": "The excerpts do not contain information about the maximum amount that can be loaded in the time of issuance for a Small PPI."
+    },
+    "citation_validity": 1.0,
+    "fabricated_ids": [],
+    "tool_calls": 2,
+    "iterations": 2,
+    "hit_iteration_limit": false,
+    "answer_usage": {
+      "input_tokens": 2249,
+      "output_tokens": 360
+    },
+    "judge_usage": {
+      "input_tokens": 1538,
+      "output_tokens": 38
+    }
+  },
+  {
+    "id": "q14",
+    "question": "A wallet company wants to onboard a foreign politician as a customer. Which rulebook governs that, and what does it require?",
+    "answer": "The relevant rulebook for onboarding a foreign politician as a customer is the Reserve Bank of India (Commercial Banks - Know Your Customer) Directions, 2025, also known as \"KYC MD\" [1396]. According to section 45-part2 of the KYC MD, these instructions shall also apply to family members or close associates of Politically Exposed Persons (PEPs), which includes individuals who are or have been entrusted with prominent public functions by a foreign country, such as Heads of States / Governments, senior politicians, senior government or judicial or military officers, senior executives of state-owned corporations [1396]. The bank shall undertake Enhanced Due Diligence (EDD) for non-face-to-face customer onboarding, which includes verifying the customer's identity through reliable and independent sources, obtaining the customer's PAN, and verifying the customer's current address through positive confirmation [1392, 1393, 1394].",
+    "verdict": {
+      "verdict": "YES",
+      "reason": "All factual claims are fully supported by the provided excerpts"
+    },
+    "citation_validity": 1.0,
+    "fabricated_ids": [],
+    "tool_calls": 2,
+    "iterations": 3,
+    "hit_iteration_limit": false,
+    "answer_usage": {
+      "input_tokens": 3287,
+      "output_tokens": 234
+    },
+    "judge_usage": {
+      "input_tokens": 1404,
+      "output_tokens": 23
+    }
+  }
+]

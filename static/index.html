@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Citadel</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; }
+  textarea { width: 100%; height: 70px; font-size: 15px; padding: 8px; box-sizing: border-box; }
+  button { padding: 8px 20px; font-size: 15px; cursor: pointer; }
+  #result { margin-top: 20px; white-space: pre-wrap; border: 1px solid #ccc; padding: 14px; display: none; }
+  .meta { color: #555; font-size: 13px; margin-top: 10px; }
+  .note { color: #777; font-size: 13px; }
+</style>
+</head>
+<body>
+<h2>Citadel</h2>
+<p>Question answering over two RBI documents: the KYC Directions, 2025 and the
+PPI Master Directions, 2021. Answers cite the exact source chunk. Off-corpus
+questions are refused.</p>
+<p class="note">Free-tier hosting: the first request after idle can take up to a
+minute while the Space wakes.</p>
+
+<textarea id="question" placeholder="e.g. What is the cash loading limit for PPIs?"></textarea>
+<div style="margin: 10px 0;">
+  <label><input type="radio" name="mode" value="simple" checked> simple</label>
+  <label><input type="radio" name="mode" value="agent"> agent (slower, multi-document)</label>
+  <button id="ask" style="margin-left: 16px;">Ask</button>
+</div>
+<div id="result"></div>
+
+<script>
+var askBtn = document.getElementById("ask");
+var resultEl = document.getElementById("result");
+
+askBtn.onclick = function () {
+  var question = document.getElementById("question").value.trim();
+  if (!question) { return; }
+  var mode = document.querySelector('input[name="mode"]:checked').value;
+
+  askBtn.disabled = true;
+  resultEl.style.display = "block";
+  resultEl.textContent = "Working... (agent mode can take a minute)";
+
+  fetch("/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question: question, mode: mode })
+  })
+  .then(function (resp) { return resp.json().then(function (data) { return { status: resp.status, data: data }; }); })
+  .then(function (r) {
+    if (r.status !== 200) {
+      resultEl.textContent = "Error: " + (r.data.detail || r.status);
+      return;
+    }
+    var text = r.data.answer + "\n\ncitations: " + JSON.stringify(r.data.citations);
+    if (r.data.mode === "agent") {
+      text += "\ncitation_validity: " + r.data.citation_validity;
+      text += "\ntool_calls: " + r.data.tool_calls + "  iterations: " + r.data.iterations;
+    }
+    text += "\ntokens: " + r.data.usage.input_tokens + " in / " + r.data.usage.output_tokens + " out";
+    resultEl.textContent = text;
+  })
+  .catch(function (err) { resultEl.textContent = "Request failed: " + err; })
+  .finally(function () { askBtn.disabled = false; });
+};
+</script>
+</body>
+</html>
